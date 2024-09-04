@@ -2,12 +2,15 @@ import { Injectable } from "@angular/core";
 import { Users } from "../models/user";
 import { USERS_MOCK } from "../mocks/users.mock";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { map, Observable, of } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  private endpoint = `${environment.apiBaseUrl}/users`;
 
   constructor(private http: HttpClient) { }
 
@@ -15,8 +18,10 @@ export class UserService {
     return USERS_MOCK;
   }
 
-  getUsers(): Observable<any> {
-    return of(null);
+  getUsers(): Observable<Users> {
+    return this.http.get(this.endpoint).pipe(
+      map((responseBody: any) => responseBody.data)
+    )
   }
 
   demosObservable(): void {
@@ -44,6 +49,12 @@ export class UserService {
     observable.subscribe((data) => {
       console.log('data', data)
     });
+
+    // demonstration des pipes (operations sur les observables)
+    observable.pipe(
+      map((x: number) => { return x * 10; })
+    )
+
   }
 
 }

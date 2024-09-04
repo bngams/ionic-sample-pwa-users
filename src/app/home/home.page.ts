@@ -16,7 +16,13 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.userSerivce.demosObservable();
     this.users = this.userSerivce.getUsersWithMock();
+
+    this.userSerivce.getUsers().subscribe((users: Users) => {
+      this.users = users;
+    });
   }
+
+
 
 
 
