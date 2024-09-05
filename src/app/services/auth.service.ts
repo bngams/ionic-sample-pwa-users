@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -10,7 +11,7 @@ export class AuthService {
   // /!\ encapsulation with private  (for more security)!
   loggedIn = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     console.log('Creating AuthService');
     if(this.getToken()) {
       // check validity on backend or inside getToken
@@ -25,8 +26,7 @@ export class AuthService {
         if(responseBody.hasOwnProperty('token')){
           this.loggedIn = true;
           this.storeToken(responseBody.token);
-          // TODO: redirect
-          console.log('OK');
+          this.router.navigateByUrl('/home');
         }
       })
   }
