@@ -18,4 +18,33 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
+  it('shoud say hello with pseudo', () => {
+    // TODO: repeated code (put in before each / describe var ? )
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const pseudo = 'Boris';
+    const wantedResult = 'Hello Boris';
+    const result = app.hello(pseudo);
+    expect(result).toEqual(wantedResult);
+  });
+
+  // INFO: testing internal logic
+  it('shoud have a welcome title after init', () => {
+    // TODO: repeated code (put in before each / describe var ? )
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const wantedResult = 'Welcome';
+    expect(app.title).toEqual(wantedResult);
+  });
+
+  // INFO: testing HTML (view) logic => can be done with E2E testing
+  it('shoud display a welcome title in h1 tag', () => {
+    // TODO: repeated code (put in before each / describe var ? )
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const html: HTMLElement = fixture.nativeElement;
+    const title = html.querySelector('h1')?.innerText;
+    expect(title).toEqual(app.title);
+  });
+
 });
