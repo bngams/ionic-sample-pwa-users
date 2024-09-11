@@ -6,7 +6,12 @@ name: Frontend main cicd
 on:
   push:
     branches: [ "master" ]
-
+    
+defaults:
+  run:
+    shell: bash
+    working-directory: ./
+    
 jobs:
   build:
     # runner for the job
