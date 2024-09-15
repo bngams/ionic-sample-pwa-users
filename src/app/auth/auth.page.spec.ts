@@ -5,7 +5,12 @@ describe('AuthPage', () => {
   let component: AuthPage;
   let fixture: ComponentFixture<AuthPage>;
 
-  beforeEach(() => {
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
+      declarations: [AuthPage],
+      imports: []
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AuthPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -21,14 +21,22 @@ export class AuthService {
   }
 
   login(email: string, password: string): void {
-    this.http.post(`${environment.apiBaseUrl}/login`, { email, password } )
+    this.http.post(`http://localhost:3000/auth/login`, { username: email, password } )
       .subscribe((responseBody: any) => {
-        if(responseBody.hasOwnProperty('token')){
+        if(responseBody.hasOwnProperty('access_token')){
           this.loggedIn = true;
-          this.storeToken(responseBody.token);
+          this.storeToken(responseBody.access_token);
+          this.profile();
           this.router.navigateByUrl('/home');
         }
       })
+  }
+
+  profile(): void {
+    this.http.get(`http://localhost:3000/auth/profile`)
+      .subscribe((responseBody: any) => {
+        console.log('XXXXX', responseBody)
+      });
   }
 
   private storeToken(token: string) {
